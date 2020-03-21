@@ -14,3 +14,4 @@ dependency-reduced-pom.xml
 
 # Maven build
 /target/
+.DS_Store

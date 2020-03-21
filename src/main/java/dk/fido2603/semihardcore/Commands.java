@@ -44,14 +44,14 @@ public class Commands implements Listener
 			player.sendMessage(ChatColor.YELLOW + this.plugin.getDescription().getFullName() + ": " + ChatColor.WHITE + "Saved configuration(s).");
 		}
 	}
-	
+
 	public void commandUnban(Player player, String[] args) {
 		if (player == null || player.isOp() || SemiHardcore.getPermissionsManager().hasPermission(player, "semihardcore.save")) {
 			String unbanPlayer = args[1];
 			SemiHardcore.getPlayerManager().unbanPlayer(player, unbanPlayer);
 		}
 	}
-	
+
 	public void commandInfo(Player player, String[] args) {
 		if (player == null || player.isOp() || SemiHardcore.getPermissionsManager().hasPermission(player, "semihardcore.info")) {
 			String playerName = args[1];
@@ -76,18 +76,18 @@ public class Commands implements Listener
 			}
 
 			player.sendMessage(ChatColor.YELLOW + "---------------- " + plugin.getDescription().getFullName() + " ----------------");
-			player.sendMessage(ChatColor.AQUA + "Playerinfo for " + ChatColor.WHITE + playerName);
+			player.sendMessage(ChatColor.AQUA + "Informações de " + ChatColor.WHITE + playerName);
 			player.sendMessage(ChatColor.AQUA + "");
 
 			if (playerUUID == null) {
-				player.sendMessage(ChatColor.RED + "The given player could not be found in the list of dead players!");
+				player.sendMessage(ChatColor.RED + "Jogador não encontrado!");
 				return;
 			}
 
-			player.sendMessage(ChatColor.AQUA + "Banned: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().isBanned(playerUUID));
-			player.sendMessage(ChatColor.AQUA + "Deaths: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().getDeaths(playerUUID));
-			player.sendMessage(ChatColor.AQUA + "Time of last death: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().getDeathTime(playerUUID));
-			player.sendMessage(ChatColor.AQUA + "Time since last death: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().getTimeSinceDeathTime(playerUUID));
+			player.sendMessage(ChatColor.AQUA + "Banido: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().isBanned(playerUUID));
+			player.sendMessage(ChatColor.AQUA + "Mortes: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().getDeaths(playerUUID));
+			player.sendMessage(ChatColor.AQUA + "Horário da última morte: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().getDeathTime(playerUUID));
+			player.sendMessage(ChatColor.AQUA + "Tempo desde a última morte: " + ChatColor.WHITE + SemiHardcore.getPlayerManager().getTimeSinceDeathTime(playerUUID));
 
 			return;
 		}
@@ -108,7 +108,7 @@ public class Commands implements Listener
 			return true;
 		}
 		player.sendMessage(ChatColor.YELLOW + "---------------- " + plugin.getDescription().getFullName() + " ----------------");
-		player.sendMessage(ChatColor.AQUA + "Made by Fido2603");
+		player.sendMessage(ChatColor.AQUA + "Forked from Fido2603");
 		player.sendMessage(ChatColor.AQUA + "");
 		if (plugin.isUHCDay) {
 			player.sendMessage(ChatColor.AQUA + "It is currently UHC Day! No natural regeneration!");

@@ -97,7 +97,7 @@ public class Commands implements Listener
 	{
 		if (player == null) {
 			this.plugin.log("---------------- " + plugin.getDescription().getFullName() + " ----------------");
-			this.plugin.log("Made by Fido2603");
+			this.plugin.log("Forked from Fido2603");
 			this.plugin.log("");
 			if (plugin.isUHCDay) {
 				this.plugin.log("It is currently UHC Day! No natural regeneration!");

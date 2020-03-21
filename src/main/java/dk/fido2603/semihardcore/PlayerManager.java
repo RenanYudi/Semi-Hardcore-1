@@ -20,7 +20,7 @@ public class PlayerManager
 	private File						semihardcoreConfigFile			= null;
 	private long						lastSaveTime					= 0L;
 	private String						datePattern						= "HH:mm:ss dd-MM-yyyy";
-	
+
 	PlayerManager(SemiHardcore plugin)
 	{
 		this.plugin = plugin;
@@ -77,20 +77,6 @@ public class PlayerManager
 		if (!isDead(playerId)) {
 			return;
 		}
-		if (!shouldPlayerBeUnbanned(playerId)) {
-			// Remove join message
-			event.setJoinMessage("");
-			// Delay the kick, to make sure the player is gone...
-			SemiHardcore.server.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-					String kickMessage = plugin.messageKickPlayerTimeLeft.replace("{timeLeft}", TimeConverter.parseMillisToUFString(plugin.timeToBan-timeDiff(playerId)));
-					player.kickPlayer(ChatColor.translateAlternateColorCodes('&', kickMessage));
-				}
-			}, 20L);
-			plugin.logDebug("Tried to keep player, " + player.getName() +", away from joining, as they are banned!");
-			return;
-		}
-		unbanPlayer(playerId);
 	}
 
 	public void unbanPlayer(UUID playerId) {
@@ -98,7 +84,7 @@ public class PlayerManager
 
 		saveTimed();
 	}
-	
+
 	public void unbanPlayer(Player player, String bannedPlayer) {
 		UUID unbanPlayerId = getUUID(bannedPlayer);
 
@@ -154,7 +140,7 @@ public class PlayerManager
 
 	public boolean shouldPlayerBeUnbanned(UUID playerId) {
 		long diff = timeDiff(playerId);
-	    
+
 	    if (diff >= plugin.timeToBan) {
 	    	plugin.logDebug("Player can now be unbanned... :)");
 	    	return true;
@@ -169,15 +155,15 @@ public class PlayerManager
 
 		String deathTimeStr = getDeathTime(playerId);
 
-		try 
+		try
 		{
 			deathTime = new SimpleDateFormat(datePattern).parse(deathTimeStr);
-		} 
-		catch (ParseException e) 
+		}
+		catch (ParseException e)
 		{
 			plugin.log("Error while parsing datetime for player...: " + e.getMessage());
 			return 0;
-		}  
+		}
 
 		long diff = Math.abs(currentTime.getTime() - deathTime.getTime());
 	    //long diff = TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS);
@@ -204,14 +190,6 @@ public class PlayerManager
 		this.semihardcoreConfig.set(playerId.toString() + ".LastDeath", sdf.format(currentTime));
 
 		this.semihardcoreConfig.set(playerId.toString() + ".IsDead", true);
-
-		// Delay the kick, to not have the console make a "Removing entity while ticking!" Exception
-		SemiHardcore.server.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			public void run() {
-				String kickMessage = plugin.messageKickPlayerOnBan.replace("{banTime}",plugin.timeToBanStringUF);
-				player.kickPlayer(ChatColor.translateAlternateColorCodes('&', kickMessage));
-			}
-		}, 1L);
 
 		this.semihardcoreConfig.set(playerId.toString() + ".Name", player.getName());
 
